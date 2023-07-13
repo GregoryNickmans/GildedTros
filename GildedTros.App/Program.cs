@@ -9,7 +9,7 @@ namespace GildedTros.App
         {
             Console.WriteLine("OMGHAI!");
 
-            IList<Item> Items = new List<Item>{
+            var items = new List<Item>{
                 new Item {Name = "Ring of Cleansening Code", SellIn = 10, Quality = 20},
                 new Item {Name = "Good Wine", SellIn = 2, Quality = 0},
                 new Item {Name = "Elixir of the SOLID", SellIn = 5, Quality = 7},
@@ -24,17 +24,16 @@ namespace GildedTros.App
                 new Item {Name = "Ugly Variable Names", SellIn = 3, Quality = 6}
             };
 
-            var app = new GildedTros(Items);
-
+            var app = new GildedTros(items);
 
             for (var i = 0; i < 31; i++)
             {
                 Console.WriteLine("-------- day " + i + " --------");
                 Console.WriteLine("name, sellIn, quality");
-                for (var j = 0; j < Items.Count; j++)
+                foreach (var item in items)
                 {
-                    System.Console.WriteLine(Items[j].Name + ", " + Items[j].SellIn + ", " + Items[j].Quality);
-                }
+					Console.WriteLine(item.Name + ", " + item.SellIn + ", " + item.Quality);
+				}
                 Console.WriteLine("");
                 app.UpdateQuality();
             }
