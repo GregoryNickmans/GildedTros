@@ -5,7 +5,7 @@ using ApprovalTests;
 using ApprovalTests.Reporters;
 using Xunit;
 
-namespace GildedTros.App
+namespace GildedTros.App.Tests
 {
     [UseReporter(typeof(DiffReporter))]
     public class ApprovalTest
