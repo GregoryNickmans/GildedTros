@@ -3,18 +3,23 @@ using System;
 
 namespace GildedTros.App.Business.Strategies
 {
-	public class UpdateSmellyItemStrategy : IUpdateItemStrategy
+	internal class UpdateSmellyItemStrategy : IUpdateItemStrategy
 	{
-		public void Execute(Item item)
-		{
-			item.SellIn -= GildedTrosAppSettings.SellInUpdateAmount;
+		private Item _item;
 
-			if (item.Quality == GildedTrosAppSettings.MinAllowedQuality)
+		public UpdateSmellyItemStrategy(Item item)
+			=> _item = item;
+
+		public void Execute()
+		{
+			_item.SellIn -= GildedTrosAppSettings.SellInUpdateAmount;
+
+			if (_item.Quality == GildedTrosAppSettings.MinAllowedQuality)
 			{
 				return;
 			}
 
-			UpdateQuality(item);
+			UpdateQuality(_item);
 		}
 
 		private void UpdateQuality(Item item)

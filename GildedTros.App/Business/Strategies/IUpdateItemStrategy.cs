@@ -4,6 +4,6 @@ namespace GildedTros.App.Business.Strategies
 {
 	public interface IUpdateItemStrategy
 	{
-		public void Execute(Item item);
+		public void Execute();
 	}
 }

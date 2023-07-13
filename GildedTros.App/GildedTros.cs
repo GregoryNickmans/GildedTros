@@ -1,4 +1,4 @@
-﻿using GildedTros.App.Business.Strategies;
+﻿using GildedTros.App.Business;
 using System.Collections.Generic;
 
 namespace GildedTros.App
@@ -12,32 +12,10 @@ namespace GildedTros.App
 
 		public void UpdateQuality()
         {
-            foreach (var item in Items) 
+			foreach (var item in Items)
 			{
-				IUpdateItemStrategy strategy = null;
-				switch (item.Name)
-				{
-					case "Good Wine":
-						strategy = new UpdateGoodWineItemStrategy();
-						break;
-					case "B-DAWG Keychain":
-						//A legendary item never has to be sold or decreases in Quality
-						break;
-					case "Backstage passes for Re:factor":
-					case "Backstage passes for HAXX":
-						strategy = new UpdateBackstagePassItemStrategy();
-						break;
-					case "Duplicate Code":
-					case "Long Methods":
-					case "Ugly Variable Names":
-						strategy = new UpdateSmellyItemStrategy();
-						break;
-					default:
-						strategy = new UpdateNormalItemStrategy();
-						break;
-				}
-
-				strategy?.Execute(item);
+				var strategy = UpdateQualityFactory.DefineStrategy(item);
+				strategy?.Execute();
 			}
         }
 	}

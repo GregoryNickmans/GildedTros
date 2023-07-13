@@ -3,23 +3,28 @@ using System;
 
 namespace GildedTros.App.Business.Strategies
 {
-	public class UpdateBackstagePassItemStrategy : IUpdateItemStrategy
+	internal class UpdateBackstagePassItemStrategy : IUpdateItemStrategy
 	{
 		private const int UPCOMING_TRESHOLD_1 = 10;
 		private const int UPCOMING_TRESHOLD_2 = 5;
 		private const int QUALITY_UPDATE_TRESHOLD_1_REACHED = 2;
 		private const int QUALITY_UPDATE_TRESHOLD_2_REACHED = 3;
 
-		public void Execute(Item item)
-		{
-			item.SellIn -= GildedTrosAppSettings.SellInUpdateAmount;
+		private Item _item;
 
-			if (item.Quality == GildedTrosAppSettings.MinAllowedQuality)
+		public UpdateBackstagePassItemStrategy(Item item)
+			=> _item = item;
+
+		public void Execute()
+		{
+			_item.SellIn -= GildedTrosAppSettings.SellInUpdateAmount;
+
+			if (_item.Quality == GildedTrosAppSettings.MinAllowedQuality)
 			{
 				return;
 			}
 
-			UpdateQuality(item);
+			UpdateQuality(_item);
 		}
 
 		private void UpdateQuality(Item item)
