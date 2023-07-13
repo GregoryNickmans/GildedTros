@@ -19,29 +19,29 @@ namespace GildedTros.App.Tests
             var quality = 8;
             var result = ExecuteTest(_normalItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
-            Assert.Equal(quality - GildedTrosAppSettings.DecreaseOfQuality, result[0].Quality);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+            Assert.Equal(quality - GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
         }
 
         [Fact]
-        public void NormalItem_SellDateInThePast()
+        public void NormalItem_InThePast()
         {
             var sellIn = 0;
             var quality = 8;
             var result = ExecuteTest(_normalItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
-            Assert.Equal(quality - 2 * GildedTrosAppSettings.DecreaseOfQuality, result[0].Quality);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+            Assert.Equal(quality - 2 * GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
         }
 
         [Fact]
-        public void NormalItem_SellDateInThePast_MinQuality()
+        public void NormalItem_InThePast_MinQuality()
         {
             var sellIn = 0;
             var quality = GildedTrosAppSettings.MinAllowedQuality;
             var result = ExecuteTest(_normalItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(GildedTrosAppSettings.MinAllowedQuality, result[0].Quality);
         }
 
@@ -52,18 +52,29 @@ namespace GildedTros.App.Tests
             var quality = 8;
             var result = ExecuteTest(_goodWineItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
-            Assert.Equal(quality + GildedTrosAppSettings.DecreaseOfQuality, result[0].Quality);
-        }
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+            Assert.Equal(quality + GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
+		}
 
-        [Fact]
-        public void GoodWine_SellDateInThePast_MaxQuality()
+		[Fact]
+		public void GoodWine_InThePast()
+		{
+			var sellIn = 0;
+			var quality = 8;
+			var result = ExecuteTest(_goodWineItemName, sellIn, quality);
+
+			Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+			Assert.Equal(quality + 2 * GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
+		}
+
+		[Fact]
+        public void GoodWine_InThePast_MaxQuality()
         {
             var sellIn = 0;
             var quality = GildedTrosAppSettings.MaxAllowedQuality;
             var result = ExecuteTest(_goodWineItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(GildedTrosAppSettings.MaxAllowedQuality, result[0].Quality);
         }
 
@@ -85,8 +96,8 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
-            Assert.Equal(quality + GildedTrosAppSettings.DecreaseOfQuality, result[0].Quality);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+            Assert.Equal(quality + GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
         }
 
         [Fact]
@@ -96,7 +107,7 @@ namespace GildedTros.App.Tests
             var quality = GildedTrosAppSettings.MaxAllowedQuality;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(GildedTrosAppSettings.MaxAllowedQuality, result[0].Quality);
         }
 
@@ -107,7 +118,7 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(quality + 2, result[0].Quality);
         }
 
@@ -118,7 +129,7 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(quality + 2, result[0].Quality);
         }
 
@@ -129,7 +140,7 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(quality + 3, result[0].Quality);
         }
 
@@ -140,7 +151,7 @@ namespace GildedTros.App.Tests
             var quality = GildedTrosAppSettings.MaxAllowedQuality - 1;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(GildedTrosAppSettings.MaxAllowedQuality, result[0].Quality);
         }
 
@@ -151,7 +162,7 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_backstagePassesItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
             Assert.Equal(0, result[0].Quality);
         }
 
@@ -162,11 +173,33 @@ namespace GildedTros.App.Tests
             var quality = 10;
             var result = ExecuteTest(_smellyItemName, sellIn, quality);
 
-            Assert.Equal(sellIn - GildedTrosAppSettings.DecreaseOfSellIn, result[0].SellIn);
-            Assert.Equal(quality - 2 * GildedTrosAppSettings.DecreaseOfQuality, result[0].Quality);
-        }
+            Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+            Assert.Equal(quality - 2 * GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
+		}
 
-        private List<Item> ExecuteTest(string name, int sellIn, int quality)
+		[Fact]
+		public void SmellyItem_InThePast()
+		{
+			var sellIn = 0;
+			var quality = 10;
+			var result = ExecuteTest(_smellyItemName, sellIn, quality);
+
+			Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+			Assert.Equal(quality - 2 * 2 * GildedTrosAppSettings.QualityUpdateAmount, result[0].Quality);
+		}
+
+		[Fact]
+		public void SmellyItem_InThePast_MinQuality()
+		{
+			var sellIn = 0;
+			var quality = 3;
+			var result = ExecuteTest(_smellyItemName, sellIn, quality);
+
+			Assert.Equal(sellIn - GildedTrosAppSettings.SellInUpdateAmount, result[0].SellIn);
+			Assert.Equal(GildedTrosAppSettings.MinAllowedQuality, result[0].Quality);
+		}
+
+		private List<Item> ExecuteTest(string name, int sellIn, int quality)
         {
             var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
             GildedTros app = new GildedTros(items);
